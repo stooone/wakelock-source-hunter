@@ -37,3 +37,5 @@ com.devhd.feedly 1^C
 ```
 
 As you can see after disabling **com.otpmobil.simple** the **wakelocks** vanished, and after re enabling it didn't returned, so the app was doing some background job what stuck sometines and caused the wakelocks for me. I deleted it and my **wakelock** issue is done. As you can see not all the **wakelocks** wanished, buy since it is a mobile network related **wakelock** it's not a problem.
+
+Please send success stories to: stone at midway dot hu
