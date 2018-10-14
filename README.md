@@ -20,20 +20,23 @@ I was fighting with the `IPA_RM12` and `IPA_WS` **wakelock**. I've googled for a
 
 ```
 :/storage/emulated/0 # bash wakelock-source-hunter.sh
-baseline 32
-baseline 8
-baseline 17
-net.oneplus.weather 9
-com.alibaba.aliexpresshd 28
-com.google.android.apps.docs.editors.docs 9
-com.ichi2.anki 32
-com.otpmobil.simple 0
-com.niksoftware.snapseed 0
-com.oneplus.soundrecorder 0
-com.italki.app 3
-com.devhd.feedly 1^C
+Parent app is com.sonelli.juicessh, will skip it during the tests.
+
+I will count IPA_WS wakelocks during disabling apps one-by-one. But before I'll make some baseline with all apps enabled. Please wait...
+
+        32 Baseline
+         8 Baseline
+        17 Baseline
+         9 net.oneplus.weather
+        28 com.alibaba.aliexpresshd
+         9 com.google.android.apps.docs.editors.docs
+        32 com.ichi2.anki
+         0 com.otpmobil.simple
+         0 com.niksoftware.snapseed
+         0 com.oneplus.soundrecorder
+         3 com.italki.app
+         1com.devhd.feedly^C
 ```
-(Note: this output is from on older version of the app.)
 
 As you can see after disabling **com.otpmobil.simple** the **wakelocks** vanished, and after re enabling it didn't returned, so the app was doing some background job what stuck sometines and caused the wakelocks for me. I deleted it and my **wakelock** issue is done. As you can see not all the **wakelocks** wanished, buy since it is a mobile network related **wakelock** it's not a problem.
 
