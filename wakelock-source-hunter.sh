@@ -12,7 +12,7 @@ echo -e "I will count ${WAKELOCK} wakelocks during disabling apps one-by-one. Bu
 
 for i in $( seq 3 ); do
 
-  echo -n "Baseline"
+  printf "Baseline ..."
   BEFORE=$(cat /sys/kernel/debug/wakeup_sources | grep ${WAKELOCK} |awk '{ print $2; }')
 
   sleep ${SLEEP}
@@ -20,7 +20,7 @@ for i in $( seq 3 ); do
   AFTER=$(cat /sys/kernel/debug/wakeup_sources | grep ${WAKELOCK} |awk '{ print $2; }')
 
   COUNT=$(( ${AFTER} - ${BEFORE} ))
-  echo " ${COUNT}"
+  printf "\r%10d baseline\n" ${COUNT}
 
 done
 
@@ -34,7 +34,7 @@ while read LINE; do
   fi
 
 
-  echo -n ${PACKAGE} 
+  printf "${PACKAGE} ..."
   BEFORE=$(cat /sys/kernel/debug/wakeup_sources | grep ${WAKELOCK} |awk '{ print $2; }')
   pm disable ${PACKAGE} >/dev/null
 
@@ -44,7 +44,7 @@ while read LINE; do
   pm enable ${PACKAGE} >/dev/null
 
   COUNT=$(( ${AFTER} - ${BEFORE} ))
-  echo " ${COUNT}"
+  printf "\r%10d %s\n" ${COUNT} ${PACKAGE}
   
   # This sleep is for braking the script without stucking an app disabled
   sleep 5
