@@ -11,8 +11,6 @@ The script does 30 second tests and counts the selected **wakelock** during that
   * You must use [BetterBatteryStats](https://play.google.com/store/apps/details?id=com.asksven.betterbatterystats) to find out what **wakelock** bothers you
   * Backup/note down your app shortcuts on your launcher (if you disable an app it is removed from the launcher), or you can switch to an alternative launcher and then back this way your usual launcher's app shourtcuts will be preserved
   * Edit the script and set `WAKELOCK=` to your **wakelock** of choise
-  * In a **root** terminal prepare the app list with the command: `pm list packages -3 -e > packages.txt`
-  * Remove those apps from the `packages.txt` that you don't want to test, at least the terminal you are using!
   * Start the srcipt by `bash wakelock-source-hunter.sh`
   * Interpret and do experiments by the results
   
@@ -35,6 +33,7 @@ com.oneplus.soundrecorder 0
 com.italki.app 3
 com.devhd.feedly 1^C
 ```
+(Note: this output is from on older version of the app.)
 
 As you can see after disabling **com.otpmobil.simple** the **wakelocks** vanished, and after re enabling it didn't returned, so the app was doing some background job what stuck sometines and caused the wakelocks for me. I deleted it and my **wakelock** issue is done. As you can see not all the **wakelocks** wanished, buy since it is a mobile network related **wakelock** it's not a problem.
 
