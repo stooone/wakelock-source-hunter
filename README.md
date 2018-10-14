@@ -35,7 +35,7 @@ I will count IPA_WS wakelocks during disabling apps one-by-one. But before I'll 
          0 com.niksoftware.snapseed
          0 com.oneplus.soundrecorder
          3 com.italki.app
-         1com.devhd.feedly^C
+         1 com.devhd.feedly^C
 ```
 
 As you can see after disabling **com.otpmobil.simple** the **wakelocks** vanished, and after re enabling it didn't returned, so the app was doing some background job what stuck sometines and caused the wakelocks for me. I deleted it and my **wakelock** issue is done. As you can see not all the **wakelocks** wanished, buy since it is a mobile network related **wakelock** it's not a problem.
