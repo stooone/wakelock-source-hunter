@@ -8,6 +8,8 @@ The script does 30 second tests and counts the selected **wakelock** during that
 
 ## Usage
 
+**Use this script at your own risk, I take no responsibility for any damages to your phone! Don't use it if you don't understand what is does!**
+
   * You must use [BetterBatteryStats](https://play.google.com/store/apps/details?id=com.asksven.betterbatterystats) to find out what **wakelock** bothers you
   * Backup/note down your app shortcuts on your launcher (if you disable an app it is removed from the launcher), or you can switch to an alternative launcher and then back this way your usual launcher's app shourtcuts will be preserved
   * Edit the script and set `WAKELOCK=` to your **wakelock** of choise
