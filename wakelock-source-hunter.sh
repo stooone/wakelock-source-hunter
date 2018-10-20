@@ -35,7 +35,7 @@ for i in $( seq 3 ); do
 done
 
 
-while read LINE; do
+pm list packages -3 -e | while read LINE; do
 
   PACKAGE=${LINE#*:}
 
@@ -59,5 +59,5 @@ while read LINE; do
   # This sleep is for braking the script without stucking an app disabled
   sleep 5
 
-done < <(pm list packages -3 -e)
+done
 
