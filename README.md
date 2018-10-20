@@ -13,6 +13,8 @@ The script does 30 second tests and counts the selected **wakelock** during that
   * You must use [BetterBatteryStats](https://play.google.com/store/apps/details?id=com.asksven.betterbatterystats) to find out what **wakelock** bothers you
   * Backup/note down your app shortcuts on your launcher (if you disable an app it is removed from the launcher), or you can switch to an alternative launcher and then back this way your usual launcher's app shourtcuts will be preserved
   * Edit the script and set `WAKELOCK=` to your **wakelock** of choise
+  * start a shell on your phone (I recommend JuiceSSH for "local device" connection)
+  * `su` to gain **root**
   * Start the srcipt by `bash wakelock-source-hunter.sh`
   * Interpret and do experiments by the results
 
@@ -23,6 +25,7 @@ The script does 30 second tests and counts the selected **wakelock** during that
 I was fighting with the `IPA_RM12` and `IPA_WS` **wakelock**. I've googled for a long time but the only info I was able to find out that it is the [Qualcomm Linux Modem's](https://osmocom.org/projects/quectel-modems/wiki/Qualcomm_Kernel#IPA-Internet-Packet-Accelerator) **wakelock**, so it has some connection with the mobile communication. So something is using the mobie net in the background constantly but not that hard that I can spot it by network usage. I know there would be other ways to find out the source of network traffic, for example by monitoring the network, but it would be more of a pain and this way I've built a more useful tool for future use. My phone was ok for hours but then somethign happened and those two **wakelocks** kept it awake around 50% screen off time, only reboot helped. So some app must stuck somehow and causes it.
 
 ```
+~$ su
 :/storage/emulated/0 # bash wakelock-source-hunter.sh
 Parent app is com.sonelli.juicessh, will skip it during the tests.
 
