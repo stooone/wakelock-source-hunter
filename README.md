@@ -15,7 +15,7 @@ The script does 30 second tests and counts the selected **wakelock** during that
   * Edit the script and set `WAKELOCK=` to your **wakelock** of choise
   * Start a shell on your phone (I recommend JuiceSSH for "local device" connection)
   * `su` to gain **root**
-  * Start the srcipt by `bash wakelock-source-hunter.sh`
+  * Start the srcipt by `bash wakelock-source-hunter.sh` (should also work with **mksh**)
   * Interpret and do experiments by the results
 
 **Note:** all environments are different, I can't guarantee they this will work in your. If you get an error message try another terminal emulator. (I use JuiceSSH.)
