@@ -8,6 +8,9 @@ WAKELOCK=IPA_WS
 PARENT=$(dumpsys window windows | grep mCurrentFocus | cut -d'{' -f2 |cut -d' ' -f3 |cut -d'/' -f1)
 echo -e "Parent app is ${PARENT}, will skip it during the tests.\n"
 
+LAUNCHER=$(cmd shortcut get-default-launcher|head -n 1|cut -d'{' -f2|cut -d'/' -f 1)
+echo -e "The active launcher is: ${LAUNCHER}, I will kill it before disabling the apps, this way the shortcuts will preserve (hopefully)\n"
+
 if [ ! -e /sys/kernel/debug/wakeup_sources ]; then
   echo "Error: can't find the wakeup_sources file."
   exit 1
@@ -45,6 +48,7 @@ pm list packages -3 -e | while read -r LINE; do
 
 
   printf "%s ..." ${PACKAGE}
+  am force-stop ${LAUNCHER}
   BEFORE=$(grep ${WAKELOCK} /sys/kernel/debug/wakeup_sources | awk '{ print $2; }')
   pm disable ${PACKAGE} >/dev/null
 

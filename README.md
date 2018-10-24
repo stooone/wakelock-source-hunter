@@ -11,7 +11,7 @@ The script does 30 second tests and counts the selected **wakelock** during that
 **Use this script at your own risk, I take no responsibility for any damages to your phone! Don't use it if you don't understand what is does!**
 
   * You must use [BetterBatteryStats](https://play.google.com/store/apps/details?id=com.asksven.betterbatterystats) to find out what **wakelock** bothers you
-  * Backup/note down your app shortcuts on your launcher (if you disable an app it is removed from the launcher), or you can switch to an alternative launcher and then back this way your usual launcher's app shourtcuts will be preserved
+  * The script tries to preserve your launcher shortcuts by force stopping the launcher before disabling an app, but despite this app shortcuts can disappear, so backup/note down your app shortcuts on your launcher, or you can switch to an alternative launcher and then back this way your usual launcher's app shourtcuts will be preserved
   * Edit the script and set `WAKELOCK=` to your **wakelock** of choise
   * Start a shell on your phone (I recommend JuiceSSH for "local device" connection)
   * `su` to gain **root**
@@ -28,6 +28,8 @@ I was fighting with the `IPA_RM12` and `IPA_WS` **wakelock**. I've googled for a
 ~$ su
 :/storage/emulated/0 # bash wakelock-source-hunter.sh
 Parent app is com.sonelli.juicessh, will skip it during the tests.
+
+The active launcher is: net.oneplus.launcher, I will kill it before disabling the apps, this way the shortcuts will preserve (hopefully)
 
 I will count IPA_WS wakelocks during disabling apps one-by-one. But before I'll make some baseline with all apps enabled. Please wait...
 
