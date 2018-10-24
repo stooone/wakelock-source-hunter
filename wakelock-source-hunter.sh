@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 SLEEP=30
 WAKELOCK=IPA_WS
@@ -6,10 +6,10 @@ WAKELOCK=IPA_WS
 
 
 PARENT=$(dumpsys window windows | grep mCurrentFocus | cut -d'{' -f2 |cut -d' ' -f3 |cut -d'/' -f1)
-echo -e "Parent app is ${PARENT}, will skip it during the tests.\n"
+printf "Parent app is %s, will skip it during the tests.\n" "${PARENT}"
 
 LAUNCHER=$(cmd shortcut get-default-launcher|head -n 1|cut -d'{' -f2|cut -d'/' -f 1)
-echo -e "The active launcher is: ${LAUNCHER}, I will kill it before disabling the apps, this way the shortcuts will preserve (hopefully)\n"
+printf "The active launcher is: %s, I will kill it before disabling the apps, this way the shortcuts will preserve (hopefully)\n" "${LAUNCHER}"
 
 if [ ! -e /sys/kernel/debug/wakeup_sources ]; then
   echo "Error: can't find the wakeup_sources file."
@@ -17,11 +17,11 @@ if [ ! -e /sys/kernel/debug/wakeup_sources ]; then
 fi
 
 if ! grep ${WAKELOCK} /sys/kernel/debug/wakeup_sources >/dev/null; then
-  echo "Error: you have selected the ${WAKELOCK} to hunt down, but your phone doesn't have this wakelock. Please edit this script and select another wakelock."
+  printf "Error: you have selected the %s to hunt down, but your phone doesn't have this wakelock. Please edit this script and select another wakelock." "${WAKELOCK}"
   exit 1
 fi
 
-echo -e "I will count ${WAKELOCK} wakelocks during disabling apps one-by-one. But before I'll make some baseline with all apps enabled. Please wait...\n"
+printf "I will count %s wakelocks during disabling apps one-by-one. But before I'll make some baseline with all apps enabled. Please wait...\n" "${WAKELOCK}"
 
 for i in $( seq 3 ); do
 
@@ -42,23 +42,23 @@ pm list packages -3 -e | while read -r LINE; do
 
   PACKAGE=${LINE#*:}
 
-  if [ "$PACKAGE" == "$PARENT" ]; then
+  if [ "$PACKAGE" = "$PARENT" ]; then
     continue
   fi
 
 
-  printf "%s ..." ${PACKAGE}
-  am force-stop ${LAUNCHER}
+  printf "%s ..." "${PACKAGE}"
+  am force-stop "${LAUNCHER}"
   BEFORE=$(grep ${WAKELOCK} /sys/kernel/debug/wakeup_sources | awk '{ print $2; }')
-  pm disable ${PACKAGE} >/dev/null
+  pm disable "${PACKAGE}" >/dev/null
 
   sleep ${SLEEP}
 
   AFTER=$(grep ${WAKELOCK} /sys/kernel/debug/wakeup_sources | awk '{ print $2; }')
-  pm enable ${PACKAGE} >/dev/null
+  pm enable "${PACKAGE}" >/dev/null
 
   COUNT=$(( AFTER - BEFORE ))
-  printf "\r%10d %s\n" ${COUNT} ${PACKAGE}
+  printf "\r%10d %s\n" "${COUNT}" "${PACKAGE}"
   
   # This sleep is for braking the script without stucking an app disabled
   sleep 5
